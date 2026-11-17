@@ -1,0 +1,364 @@
+
+> ie498-smart-contracts@1.0.0 verify
+> npm run build && npm test && npm run demo
+
+
+> ie498-smart-contracts@1.0.0 build
+> node scripts/forge.mjs build
+
+Compiling 2 files with Solc 0.8.30
+Solc 0.8.30 finished in 2.15s
+Compiler run successful!
+2026-11-17T22:01:36.229948Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-17T22:01:36.230823Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-17T22:01:36.230833Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:20:29
+   |
+20 |     IERC20 public immutable token;
+   |                             ^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/Project.t.sol:3:8
+  |
+3 | import "../src/Project.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:71:30
+   |
+71 |     address public immutable operator;
+   |                              ^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-const]: constants should use SCREAMING_SNAKE_CASE
+  --> test/Project.t.sol:14:17
+   |
+14 |     Vm constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
+   |                 ^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-const
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:96:30
+   |
+96 |     address public immutable merchant;
+   |                              ^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+   --> src/Project.sol:167:30
+    |
+167 |     address public immutable beneficiary;
+    |                              ^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+   --> src/Project.sol:168:30
+    |
+168 |     uint256 public immutable releaseTime;
+    |                              ^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:58:9
+   |
+58 |         t.transfer(C, 10 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:75:9
+   |
+75 |         t.transfer(address(0), 1);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:78:9
+   |
+78 |         t.transfer(A, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:106:24
+    |
+106 |         products[id] = Product(price, active);
+    |                        ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   --> test/Project.t.sol:327:9
+    |
+327 |         t.transfer(B, amount);
+    |         ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:142:20
+    |
+142 |         deals.push(Deal(msg.sender, seller, amount, deadline, State.Funded));
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[unwrapped-modifier-logic]: wrap modifier logic to reduce code size
+   --> src/Project.sol:202:14
+    |
+202 |     modifier onlyOwner() {
+    |              ^^^^^^^^^
+    |
+    = note: wrap modifier logic to reduce code size
+            
+            - modifier onlyOwner() {
+            -     require(isOwner[msg.sender], "owner");
+            -     _;
+            - }
+            + modifier onlyOwner() {
+            +     _onlyOwner();
+            +     _;
+            + }
+            + 
+            + function _onlyOwner() internal {
+            +     require(isOwner[msg.sender], "owner");
+            + }
+            
+            
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unwrapped-modifier-logic
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:217:23
+    |
+217 |         payments.push(Payment(to, amount, 0, false));
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+
+> ie498-smart-contracts@1.0.0 test
+> node scripts/forge.mjs test -vv
+
+No files changed, compilation skipped
+2026-11-17T22:01:36.714527Z  WARN traces::etherscan: etherscan config not found
+2026-11-17T22:01:36.744252Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+
+Ran 22 tests for test/Project.t.sol:ProjectTest
+[PASS] testAllowanceOverwriteRace() (gas: 76441)
+[PASS] testEmptyFaucetRollback() (gas: 265912)
+[PASS] testEscrowConfirm() (gas: 197697)
+[PASS] testEscrowDeadlineRefund() (gas: 186138)
+[PASS] testEscrowSellerRefund() (gas: 174785)
+[PASS] testExactAllowanceBoundsLoss() (gas: 55132)
+[PASS] testFaucetBoundary() (gas: 100494)
+[PASS] testFuzzTransferSupply(uint96) (runs: 256, μ: 27074, ~: 27206)
+[PASS] testFuzzVaultConservation(uint96) (runs: 256, μ: 114223, ~: 114229)
+[PASS] testMarketplace() (gas: 149907)
+[PASS] testMarketplaceFailedPaymentRollback() (gas: 95208)
+[PASS] testMultisigInvalidOwners() (gas: 87696)
+[PASS] testMultisigQuorumReplayAndRevoke() (gas: 257886)
+[PASS] testRevokeBlocksFutureDrain() (gas: 33772)
+[PASS] testRevokeCannotRecoverSpentTokens() (gas: 55822)
+[PASS] testSpenderAuthorization() (gas: 69109)
+[PASS] testTimelock() (gas: 55918)
+[PASS] testTokenInvalidTransfers() (gas: 14177)
+[PASS] testTokenMintBurnTransfer() (gas: 64551)
+[PASS] testUnlimitedApprovalDrainsFutureFunds() (gas: 83282)
+[PASS] testVaultIsolation() (gas: 111776)
+[PASS] testVaultNeedsAllowanceAndRejectsZero() (gas: 29169)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 21.74ms (20.70ms CPU time)
+
+Ran 1 test suite in 30.29ms (21.74ms CPU time): 22 tests passed, 0 failed, 0 skipped (22 total tests)
+2026-11-17T22:01:36.746292Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-17T22:01:36.746307Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+
+> ie498-smart-contracts@1.0.0 predemo
+> npm run build
+
+
+> ie498-smart-contracts@1.0.0 build
+> node scripts/forge.mjs build
+
+No files changed, compilation skipped
+2026-11-17T22:01:37.344618Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-17T22:01:37.344810Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-17T22:01:37.344821Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:20:29
+   |
+20 |     IERC20 public immutable token;
+   |                             ^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/Project.t.sol:3:8
+  |
+3 | import "../src/Project.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:71:30
+   |
+71 |     address public immutable operator;
+   |                              ^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-const]: constants should use SCREAMING_SNAKE_CASE
+  --> test/Project.t.sol:14:17
+   |
+14 |     Vm constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
+   |                 ^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-const
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> src/Project.sol:96:30
+   |
+96 |     address public immutable merchant;
+   |                              ^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+   --> src/Project.sol:167:30
+    |
+167 |     address public immutable beneficiary;
+    |                              ^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+   --> src/Project.sol:168:30
+    |
+168 |     uint256 public immutable releaseTime;
+    |                              ^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:58:9
+   |
+58 |         t.transfer(C, 10 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:75:9
+   |
+75 |         t.transfer(address(0), 1);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Project.t.sol:78:9
+   |
+78 |         t.transfer(A, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:106:24
+    |
+106 |         products[id] = Product(price, active);
+    |                        ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   --> test/Project.t.sol:327:9
+    |
+327 |         t.transfer(B, amount);
+    |         ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:142:20
+    |
+142 |         deals.push(Deal(msg.sender, seller, amount, deadline, State.Funded));
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[unwrapped-modifier-logic]: wrap modifier logic to reduce code size
+   --> src/Project.sol:202:14
+    |
+202 |     modifier onlyOwner() {
+    |              ^^^^^^^^^
+    |
+    = note: wrap modifier logic to reduce code size
+            
+            - modifier onlyOwner() {
+            -     require(isOwner[msg.sender], "owner");
+            -     _;
+            - }
+            + modifier onlyOwner() {
+            +     _onlyOwner();
+            +     _;
+            + }
+            + 
+            + function _onlyOwner() internal {
+            +     require(isOwner[msg.sender], "owner");
+            + }
+            
+            
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unwrapped-modifier-logic
+
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> src/Project.sol:217:23
+    |
+217 |         payments.push(Payment(to, amount, 0, false));
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+
+> ie498-smart-contracts@1.0.0 demo
+> node scripts/demo.mjs
+
+PASS: 47 successful transactions; 8 expected failures; four wallet balances verified. Evidence: evidence/local/
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice

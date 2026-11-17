@@ -1,0 +1,51 @@
+
+> ie498-smart-contracts@1.0.0 test:coverage
+> node scripts/forge.mjs coverage
+
+Warning: optimizer settings and `viaIR` have been disabled for accurate coverage reports.
+If you encounter "stack too deep" errors, consider using `--ir-minimum` which enables `viaIR` with minimum optimization resolving most of the errors
+Compiling 15 files with Solc 0.8.30
+Solc 0.8.30 finished in 148.08ms
+Compiler run successful!
+Analysing contracts...
+Running tests...
+
+Ran 22 tests for test/Project.t.sol:ProjectTest
+[PASS] testAllowanceOverwriteRace() (gas: 81869)
+[PASS] testEmptyFaucetRollback() (gas: 439537)
+[PASS] testEscrowConfirm() (gas: 206658)
+[PASS] testEscrowDeadlineRefund() (gas: 194612)
+[PASS] testEscrowSellerRefund() (gas: 181325)
+[PASS] testExactAllowanceBoundsLoss() (gas: 59991)
+[PASS] testFaucetBoundary() (gas: 106383)
+[PASS] testFuzzTransferSupply(uint96) (runs: 256, μ: 30337, ~: 30534)
+[PASS] testFuzzVaultConservation(uint96) (runs: 256, μ: 120294, ~: 120300)
+[PASS] testMarketplace() (gas: 159296)
+[PASS] testMarketplaceFailedPaymentRollback() (gas: 99631)
+[PASS] testMultisigInvalidOwners() (gas: 90586)
+[PASS] testMultisigQuorumReplayAndRevoke() (gas: 269404)
+[PASS] testRevokeBlocksFutureDrain() (gas: 37628)
+[PASS] testRevokeCannotRecoverSpentTokens() (gas: 59954)
+[PASS] testSpenderAuthorization() (gas: 76329)
+[PASS] testTimelock() (gas: 59638)
+[PASS] testTokenInvalidTransfers() (gas: 16520)
+[PASS] testTokenMintBurnTransfer() (gas: 71524)
+[PASS] testUnlimitedApprovalDrainsFutureFunds() (gas: 90822)
+[PASS] testVaultIsolation() (gas: 117800)
+[PASS] testVaultNeedsAllowanceAndRejectsZero() (gas: 31945)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 25.83ms (46.10ms CPU time)
+
+Ran 1 test suite in 28.22ms (25.83ms CPU time): 22 tests passed, 0 failed, 0 skipped (22 total tests)
+
+╭-----------------+-------------------+-----------------+----------------+-----------------╮
+| File            | % Lines           | % Statements    | % Branches     | % Funcs         |
++==========================================================================================+
+| src/Project.sol | 100.00% (100/100) | 100.00% (81/81) | 79.55% (35/44) | 100.00% (22/22) |
+|-----------------+-------------------+-----------------+----------------+-----------------|
+| Total           | 100.00% (100/100) | 100.00% (81/81) | 79.55% (35/44) | 100.00% (22/22) |
+╰-----------------+-------------------+-----------------+----------------+-----------------╯
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice

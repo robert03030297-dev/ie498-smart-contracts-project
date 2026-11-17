@@ -1,0 +1,41 @@
+
+> ie498-smart-contracts@1.0.0 test
+> node scripts/forge.mjs test -vv
+
+No files changed, compilation skipped
+2026-11-17T22:01:54.575259Z  WARN traces::etherscan: etherscan config not found
+2026-11-17T22:01:54.585968Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+
+Ran 22 tests for test/Project.t.sol:ProjectTest
+[PASS] testAllowanceOverwriteRace() (gas: 76441)
+[PASS] testEmptyFaucetRollback() (gas: 265912)
+[PASS] testEscrowConfirm() (gas: 197697)
+[PASS] testEscrowDeadlineRefund() (gas: 186138)
+[PASS] testEscrowSellerRefund() (gas: 174785)
+[PASS] testExactAllowanceBoundsLoss() (gas: 55132)
+[PASS] testFaucetBoundary() (gas: 100494)
+[PASS] testFuzzTransferSupply(uint96) (runs: 256, μ: 27140, ~: 27206)
+[PASS] testFuzzVaultConservation(uint96) (runs: 256, μ: 114222, ~: 114224)
+[PASS] testMarketplace() (gas: 149907)
+[PASS] testMarketplaceFailedPaymentRollback() (gas: 95208)
+[PASS] testMultisigInvalidOwners() (gas: 87696)
+[PASS] testMultisigQuorumReplayAndRevoke() (gas: 257886)
+[PASS] testRevokeBlocksFutureDrain() (gas: 33772)
+[PASS] testRevokeCannotRecoverSpentTokens() (gas: 55822)
+[PASS] testSpenderAuthorization() (gas: 69109)
+[PASS] testTimelock() (gas: 55918)
+[PASS] testTokenInvalidTransfers() (gas: 14177)
+[PASS] testTokenMintBurnTransfer() (gas: 64551)
+[PASS] testUnlimitedApprovalDrainsFutureFunds() (gas: 83282)
+[PASS] testVaultIsolation() (gas: 111776)
+[PASS] testVaultNeedsAllowanceAndRejectsZero() (gas: 29169)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 9.63ms (17.26ms CPU time)
+
+Ran 1 test suite in 10.85ms (9.63ms CPU time): 22 tests passed, 0 failed, 0 skipped (22 total tests)
+2026-11-17T22:01:54.587055Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-17T22:01:54.587111Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
