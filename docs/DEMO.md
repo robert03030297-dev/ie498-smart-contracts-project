@@ -1,14 +1,24 @@
-# 8 分钟课堂演示
+# Eight-Minute Classroom Demonstration
 
-1. **准备（1 分钟）**：打开 README，介绍九项模块和四钱包。首次执行 `npm ci && npm run setup`，展示 `npm test` 的 22 项通过结果。
-2. **运行（1 分钟）**：执行 `npm run demo`。会自动部署全部模块，在本地执行交易并推进 24 小时，无需钱包插件或资金。
-3. **核心流程（2 分钟）**：打开 `evidence/local/transactions.csv`，依次定位 faucet、vault、spender、market、escrow、multisig 和 timelock 标签。用 run.json 的 snapshots 比较初始与结束余额；vault-funded 快照展示存款期间资产和负债一致。
-4. **失败也是证据（1 分钟）**：打开 failed-transactions.csv。解释 status 0 交易不会转移 ILT，但仍消耗 gas。展示冷却期、他人提款、单人多签和提前解锁的拒绝。
-5. **授权实验（2 分钟）**：展示 unlimited-approval 后 malicious-drain，解释 MAX allowance 不递减；revoke 后 drain 回滚。对比旧额度 100 被先花费、覆盖为 50 后再花费，总损失 150。最后展示 exact-allowance 限制为 10。撤销不能追回已转出的资产；先归零并确认也不能消除归零交易之前的抢跑损失，必须复核实际余额/支出。
-6. **结论（1 分钟）**：核对最终四钱包 865 / 1050 / 1020 / 1410 ILT，总供应 5545；演示 Sepolia 脚本无凭证时明确 SKIPPED。说明本次结果来自 Anvil，而非测试网。
+1. **Preparation (1 minute):** Open the README and introduce the nine modules and four wallets. Before the first demonstration, run `npm ci && npm run setup`. Show the 22 passing tests produced by `npm test`.
+2. **Run the demo (1 minute):** Execute `npm run demo`. It automatically deploys every module, executes local transactions, and advances the local chain clock by 24 hours. No wallet extension or real funds are required.
+3. **Core workflows (2 minutes):** Open `evidence/local/transactions.csv` and locate the faucet, vault, spender, market, escrow, multisig, and timelock labels. Compare initial and final balances using the `snapshots` in `evidence/local/run.json`. The `vault-funded` snapshot shows that vault assets match its deposit liabilities while funds are held.
+4. **Failures are evidence too (1 minute):** Open `evidence/local/failed-transactions.csv`. Explain that transactions with status `0` revert their ILT transfers but still consume gas. Show the rejected attempts to claim during the cooldown, withdraw another user's funds, execute a multisig payment with only one approval, and release locked funds early.
+5. **Approval security experiments (2 minutes):** Show `unlimited-approval` followed by `malicious-drain`, and explain why the maximum allowance does not decrease. Show that a drain after `revoke` reverts. Next, demonstrate the allowance overwrite race: an attacker spends the old allowance of 100 ILT, the owner replaces it with 50 ILT, and the attacker spends another 50 ILT, for a total loss of 150 ILT. Finally, show how `exact-allowance` limits the amount to 10 ILT. Revocation cannot recover tokens already transferred. Setting the allowance to zero and waiting for confirmation also cannot prevent losses from transactions ordered before revocation; actual balances and prior spending must be checked before granting a new allowance.
+6. **Conclusion (1 minute):** Verify final wallet balances of 865 / 1050 / 1020 / 1410 ILT for Alice / Bob / Charlie / Dana, and a total supply of 5545 ILT. Run `npm run deploy:sepolia` without credentials to demonstrate the explicit `SKIPPED` result. State that the recorded results come from Anvil, not a public testnet.
 
-演示完全可重复，但临时地址、交易哈希随运行改变。Anvil 在演示结束退出，交易可通过已保存 receipt 数据查看，不能在公共区块浏览器查询。
+The demonstration is reproducible, although temporary addresses and transaction hashes change between runs. Anvil shuts down when the demo ends. Transactions can be inspected through the saved receipt data but cannot be looked up on a public block explorer.
 
-## 可视过程模式
+## Step-by-Step Terminal Mode
 
-在 macOS Finder 中双击项目的 `run-demo.command`，会自动检查依赖、执行测试并逐笔显示演示。也可在项目终端执行 `npm run demo -- --watch`。每步显示 status、gas、区块和交易哈希；预期回滚明确标注为安全拦截。最后列出四钱包余额。此模式执行真实本地交易，不是历史动画回放。
+On macOS, double-click `run-demo.command` in Finder to check dependencies, run the tests, and display the demonstration transaction by transaction. If the downloaded file is not executable, run `chmod +x run-demo.command` from the project directory first, or launch it with `zsh run-demo.command`.
+
+Alternatively, run this command from the project directory:
+
+```sh
+npm run demo -- --watch
+```
+
+Each step displays the transaction status, gas used, block number, and transaction hash. Expected reverts are explicitly identified as successful security checks. The final output lists the balances of all four wallets. This mode executes actual local-chain transactions; it is not a replay of historical results.
+
+For a replay of the saved experiment without starting a blockchain node, open `docs/transaction-replay.html` in a browser. That page does not send new transactions.
