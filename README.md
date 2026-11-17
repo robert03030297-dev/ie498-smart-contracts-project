@@ -1,10 +1,12 @@
 # IE 498 · Exploring Smart Contracts
 
-根据 Jiwoong Jung、Jiayan Guo、Arjun Sahu 于 2026-11-14 提交的 proposal 实现全部九项模块。Solidity 0.8.30 / Foundry 1.4.4 / ethers.js 6.15.0 / OpenZeppelin 5.4.0。此交付包含课程实验代码、可重复运行的测试、真实本地链交易证据和报告。
+This project implements all nine modules in the proposal submitted by Jiwoong Jung, Jiayan Guo, and Arjun Sahu on November 14, 2026. It uses Solidity 0.8.30, Foundry 1.4.4, ethers.js 6.15.0, and OpenZeppelin Contracts 5.4.0. The repository includes the educational implementation, reproducible tests, actual local-chain transaction evidence, and an experimental report.
 
-## 一键验证
+## Quick start
 
-需要 Node.js 20+、npm、首次安装时的网络连接。macOS（Apple Silicon 需要 Rosetta 支持 x86_64 solc）或 Linux x86_64：
+Requirements: Node.js 20+, npm, and an internet connection for the initial installation. The setup script supports macOS (Apple Silicon requires Rosetta for the x86_64 Solidity compiler) and Linux x86_64.
+
+Run these commands from the project directory:
 
 ```sh
 npm ci
@@ -12,72 +14,78 @@ npm run setup
 npm run verify
 ```
 
-在项目目录运行。setup 将校验 SHA-256 的官方 solc 安装到项目 `.tools/`，不会安装到全局。其他平台可安装原生 Solidity 0.8.30 后设置 `FOUNDRY_SOLC` 为编译器绝对路径。Foundry 通过锁定的 npm 包提供，不需要全局 forge。若已有编译器，也可直接使用 `FOUNDRY_SOLC`。
+The setup script downloads the official Solidity compiler, verifies its SHA-256 checksum, and installs it in the project's `.tools/` directory. It does not install a global compiler. On other platforms, install a native Solidity 0.8.30 compiler and set `FOUNDRY_SOLC` to its absolute path. You can also use this variable to select an existing compiler. Foundry is provided through pinned npm packages; a global `forge` installation is not required.
 
 ```sh
-npm run build          # 编译
-npm test               # 22 项测试；两个 fuzz 测试各 256 次
-npm run demo -- --watch # 逐笔显示交易过程（放慢播放）
-npm run demo           # 自动启动临时 Anvil、部署、演示、校验、关闭
-npm run test:gas       # Foundry 函数级 gas 报告
-npm run test:coverage  # 可选覆盖率检查
+npm run build          # Compile contracts
+npm test               # 22 tests, including two fuzz tests with 256 runs each
+npm run demo -- --watch # Show each transaction with a slower playback pace
+npm run demo           # Start Anvil, deploy, demonstrate, verify, and shut down
+npm run test:gas       # Generate a Foundry function-level gas report
+npm run test:coverage  # Run the optional coverage check
 ```
 
-演示使用 127.0.0.1:18545 / chain ID 31337，请保持端口空闲。每次生成临时四钱包，Alice/Bob/Charlie/Dana 对应账户 0/1/2/3；只通过本地解锁账户签名，不保存或打印助记词与私钥。每人初始 1000 ILT，Anvil ETH 为虚拟余额。每次运行的地址、哈希和 gas 可能不同；流程和最终 ILT 余额保持一致。演示结束关闭链，保留证据；下一次运行会覆盖 evidence/local/。
+The demo uses `127.0.0.1:18545` and chain ID `31337`; keep this port available. Each run creates four temporary wallets: Alice, Bob, Charlie, and Dana correspond to accounts 0, 1, 2, and 3. Transactions are signed through locally unlocked accounts; mnemonic phrases and private keys are neither saved nor printed. Each wallet starts with 1,000 ILT, and all Anvil ETH balances are simulated.
 
-## 合约和业务规则
+Addresses, transaction hashes, and gas values may vary between runs, while the workflow and final ILT balances remain consistent. The demo shuts down the chain when it finishes and preserves the evidence. A subsequent run overwrites `evidence/local/`.
 
-全部源码在 `src/Project.sol`，每个模块都是独立部署的合约。
+## Contracts and business rules
 
-| 模块 | 行为与权限 |
+All contract source code is in `src/Project.sol`. Each module is deployed as a separate contract.
+
+| Module | Behavior and permissions |
 |---|---|
-| IlliniToken | 标准 18 位 ERC-20；owner mint；本人 burn / 授权 burnFrom；transfer / approve / transferFrom |
-| TokenFaucet | 预先充值；每地址每 24 小时 100 ILT；余额不足回滚冷却状态 |
-| TokenVault | 个人账本存取款；不可提取他人的资金 |
-| TokenSpender | 仅固定 operator（Bob）可按已有 allowance 代扣；授权意味着信任 Bob 可选择收款人 |
-| TokenMarketplace | Bob 管理虚拟商品及定价；每钱包每商品一次；付款直接给 Bob；链上购买标记作为权益凭证 |
-| TokenEscrow | 买家创建并付款；到期前买家确认付款；卖家随时退款；到期后买家退款；最终状态不可重放 |
-| TokenTimelock | 部署时固定 Dana 与释放时间；到期任何人可触发，但只转给 Dana |
-| MultisigTreasury | Alice/Bob/Charlie 三个不同 owner；2 人批准后任一 owner 执行；可撤销批准；防重复批准/执行 |
-| ApprovalSecurityLab | **故意不安全**：任意调用者可消耗对实验合约的授权。仅用于临时测试代币 |
+| IlliniToken | Standard ERC-20 with 18 decimals; owner-only minting; holders can burn their tokens, and approved spenders can use `burnFrom`; supports `transfer`, `approve`, and `transferFrom`. |
+| TokenFaucet | Prefunded distribution of 100 ILT per address every 24 hours. Insufficient faucet funds revert the transaction and roll back the cooldown update. |
+| TokenVault | Deposits and withdrawals tracked in individual account ledgers. Users cannot withdraw another user's funds. |
+| TokenSpender | Only the fixed operator, Bob, can spend an existing allowance. Approval requires trusting Bob to choose the recipient. |
+| TokenMarketplace | Bob manages virtual products and prices. Each wallet may purchase each product once. Payment goes directly to Bob, and an on-chain purchase flag records the entitlement. |
+| TokenEscrow | The buyer creates and funds a deal, then confirms payment before the deadline. The seller may refund an unsettled deal at any time; the buyer may refund it at or after the deadline. Finalized deals cannot be settled again. |
+| TokenTimelock | Dana and the release timestamp are fixed at deployment. Anyone may trigger release after the deadline, but funds go only to Dana. |
+| MultisigTreasury | Alice, Bob, and Charlie are three distinct owners. Two approvals allow any owner to execute a payment. Approvals can be revoked; duplicate approvals and repeated execution are rejected. |
+| ApprovalSecurityLab | **Intentionally unsafe:** any caller can consume an allowance granted to this contract. Use only with disposable test tokens. |
 
-业务合约通过 SafeERC20 处理返回值并采用重入保护。Vault 仅面向本项目 ILT，不支持扣税、rebase 等改变实际到账量的代币。Faucet 为每地址限流，不是每个人限流；代币管理员有增发权。Escrow 不判断现实世界交付，也没有争议仲裁。以上是课程模型的明确边界。
+Business contracts use SafeERC20 to handle token return values and apply reentrancy protection. The vault is designed for this project's ILT, not fee-on-transfer or rebasing tokens that change the amount actually received. Faucet limits apply per address, not per person. The token owner retains minting authority. Escrow cannot verify real-world delivery and does not provide dispute arbitration. These are explicit boundaries of the educational model.
 
-## 证据与报告
+## Evidence and reports
 
-- `docs/REPORT.md`：实验方法、实测结果、九项映射、gas 分析及局限。
-- `docs/transaction-replay.html`：可在浏览器打开的真实交易回放；点击播放，不发送新交易。
-- `docs/DEMO.md`：课堂演示步骤与预期输出。
-- `docs/Project_Proposal_IE_498.pdf`：原 proposal 副本。
-- `evidence/tests.txt` / `build.txt` / `gas-report.txt`：实际运行日志。
-- `evidence/local/run.json`：部署地址、四钱包、阶段快照、状态、47 笔成功交易和 8 笔预期失败交易。
-- `evidence/local/transactions.csv`：成功交易记录，含 receipt status、gasUsed、gasPrice、feeWei。
-- `evidence/local/failed-transactions.csv`：预期回滚交易的哈希与 gas 费用。
-- `evidence/npm-audit.json`：依赖审计结果。ws 固定覆盖至 8.21.0 修复已知依赖漏洞。
+- `docs/REPORT.md`: methodology, measured results, requirements mapping, gas analysis, and limitations.
+- `docs/transaction-replay.html`: browser-viewable replay of actual recorded transactions. Playback does not send new transactions.
+- `docs/DEMO.md`: classroom demonstration steps and expected output.
+- `docs/Project_Proposal_IE_498.pdf`: a copy of the original proposal.
+- `evidence/tests.txt`, `evidence/build.txt`, and `evidence/gas-report.txt`: actual execution logs.
+- `evidence/local/run.json`: deployment addresses, four wallets, stage snapshots, contract states, 47 successful transactions, and 8 expected failed transactions.
+- `evidence/local/transactions.csv`: successful transaction receipts, including status, `gasUsed`, `gasPrice`, and `feeWei`.
+- `evidence/local/failed-transactions.csv`: hashes and gas costs for expected reverted transactions.
+- `evidence/npm-audit.json`: dependency audit results. The `ws` dependency is overridden to version 8.21.0 to address known dependency vulnerabilities.
 
-预期最终余额：Alice 865、Bob 1050、Charlie 1020、Dana 1410、Faucet 800、Treasury 400 ILT，总供应 5545 ILT。Vault、Escrow、Timelock 清空，lab allowance 为 0。
+Expected final balances are Alice: 865 ILT; Bob: 1,050 ILT; Charlie: 1,020 ILT; Dana: 1,410 ILT; Faucet: 800 ILT; and Treasury: 400 ILT. Total supply is 5,545 ILT. The Vault, Escrow, and Timelock balances are zero, and the lab allowance is zero.
 
-## 可选 Sepolia 部署
+## Optional Sepolia deployment
 
-本次未提供测试网凭证，因此未广播 Sepolia 交易；状态见 `evidence/sepolia-status.txt`。可执行流程已保留，不需要真实资金，不使用真实资产钱包。仅需免费水龙头 Sepolia ETH 支付测试网 gas。
+No Sepolia transactions were broadcast during the recorded experiment because testnet credentials were unavailable. See `evidence/sepolia-status.txt`. The deployment workflow is ready to run and requires no real funds or wallets holding real assets. Only free faucet-issued Sepolia ETH is needed to pay testnet gas fees.
 
-在本机创建一个只用于测试的加密 JSON keystore，使用安全的本地环境设置以下变量（不要将值提交到仓库或粘贴到聊天）：
+Create a test-only encrypted JSON keystore on your computer. Set the following environment variables securely; do not commit their values to the repository or paste them into chat:
 
-- `SEPOLIA_RPC_URL`：Sepolia RPC。
-- `SEPOLIA_KEYSTORE`：Alice 加密 keystore 文件路径。
-- `KEYSTORE_PASSWORD`：通过不回显的终端输入或密码管理器注入；脚本不打印。
-- `BOB_ADDRESS` / `CHARLIE_ADDRESS` / `DANA_ADDRESS`：另三个独立测试钱包的公开地址；部署无需他们的私钥。
+- `SEPOLIA_RPC_URL`: the Sepolia RPC endpoint.
+- `SEPOLIA_KEYSTORE`: the path to Alice's encrypted keystore file.
+- `KEYSTORE_PASSWORD`: supplied through a terminal prompt that does not echo input, or a password manager. The script does not print it.
+- `BOB_ADDRESS`, `CHARLIE_ADDRESS`, and `DANA_ADDRESS`: public addresses of three other distinct test wallets. Their private keys are not required for deployment.
 
 ```sh
 npm run deploy:sepolia
 ```
 
-脚本检查 chain ID 11155111、钱包不重复、非零地址和测试 ETH 余额，然后部署九合约并为四钱包及 faucet/treasury/timelock 铸币。交易记录在 `evidence/sepolia/`；途中失败则保存已完成交易到 `evidence/sepolia-partial/`。重复执行会创建新部署。不自动购买 ETH，不提供或索取真实钱包私钥。测试网时间无法通过 evm_increaseTime 加速，需实际等待 24 小时；本地 demo 的时间推进不能用于 Sepolia。
+The script checks chain ID `11155111`, distinct nonzero wallet addresses, and the deployer's test ETH balance. It then deploys all nine contracts and mints tokens for the four wallets, faucet, treasury, and timelock.
 
-## 参考资料
+Transaction evidence is saved in `evidence/sepolia/`. If deployment fails partway through, completed transaction receipts are saved in `evidence/sepolia-partial/`. Running the script again creates a new deployment. It does not purchase ETH or request private keys for wallets holding real funds.
+
+Testnet time cannot be accelerated with `evm_increaseTime`: the 24-hour cooldown and timelock require waiting on Sepolia. The local demo's time-travel operations cannot be used on the public testnet.
+
+## References
 
 - [OpenZeppelin ERC-20 / SafeERC20](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20)
-- [Foundry 官方仓库](https://github.com/foundry-rs/foundry)
+- [Foundry official repository](https://github.com/foundry-rs/foundry)
 - [ethers.js v6](https://docs.ethers.org/v6/)
 
-项目用于课程实验，未经过独立安全审计。ApprovalSecurityLab 的漏洞为教学设计；其它合约的测试通过不代表生产环境安全保证。
+This project is intended for coursework and has not undergone an independent security audit. ApprovalSecurityLab contains deliberate teaching vulnerabilities. Passing tests for the other contracts does not establish production security.
