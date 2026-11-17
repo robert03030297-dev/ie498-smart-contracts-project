@@ -1,0 +1,29 @@
+{
+  "name": "ie498-smart-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/forge.mjs build",
+    "test": "node scripts/forge.mjs test -vv",
+    "demo": "node scripts/demo.mjs",
+    "deploy:sepolia": "node scripts/sepolia.mjs",
+    "setup": "node scripts/setup-solc.mjs",
+    "test:gas": "node scripts/forge.mjs test --gas-report",
+    "test:coverage": "node scripts/forge.mjs coverage",
+    "verify": "npm run build && npm test && npm run demo",
+    "predemo": "npm run build",
+    "predeploy:sepolia": "npm run build"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.4.0",
+    "ethers": "6.15.0"
+  },
+  "devDependencies": {
+    "@foundry-rs/forge": "1.4.4",
+    "@foundry-rs/anvil": "1.4.4"
+  },
+  "overrides": {
+    "ws": "8.21.0"
+  }
+}
