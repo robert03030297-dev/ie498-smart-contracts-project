@@ -1,0 +1,1 @@
+{"name":"illini-assignments","version":"1.0.0","private":true,"type":"module","scripts":{"setup":"node scripts/setup-solc.mjs","sol:build":"node scripts/forge.mjs build","sol:test":"node scripts/forge.mjs test -vv","test":"npm run sol:test","verify":"npm run sol:build && npm test"},"dependencies":{"@openzeppelin/contracts":"5.4.0"},"devDependencies":{"@foundry-rs/forge":"1.4.4"}}

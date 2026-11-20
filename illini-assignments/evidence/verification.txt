@@ -1,0 +1,612 @@
+
+> illini-assignments@1.0.0 verify
+> npm run sol:build && npm test
+
+
+> illini-assignments@1.0.0 sol:build
+> node scripts/forge.mjs build
+
+Compiling 20 files with Solc 0.8.30
+Solc 0.8.30 finished in 893.51ms
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+ --> test/IlliniToken.t.sol:8:5:
+  |
+8 |     function testMetadata() public {
+  |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/MultiSigTreasury.t.sol:24:5:
+   |
+24 |     function testOwners() public {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/MultiSigTreasury.t.sol:35:5:
+   |
+35 |     function testProposalNoAutoApproval() public {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/TokenEscrow.t.sol:17:5:
+   |
+17 |     function testFunded() public {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/TokenMarketplace.t.sol:16:5:
+   |
+16 |     function testProduct() public {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/TokenTimelock.t.sol:17:5:
+   |
+17 |     function testLockInfo() public {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+2026-11-20T01:27:48.483988Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:48.484451Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-20T01:27:48.484458Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenSpender.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenTimelock.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenFaucet.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenEscrow.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+ --> contracts/TokenSpender.sol:8:30
+  |
+8 |     address public immutable payee;
+  |                              ^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenMarketplace.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/TokenVault.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> contracts/TokenEscrow.sol:30:22
+   |
+30 |         escrows.push(Escrow(msg.sender, seller, amount, deadline, Status.Funded));
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+ --> contracts/TokenMarketplace.sol:7:30
+  |
+7 |     address public immutable owner;
+  |                              ^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/MultiSigTreasury.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> contracts/TokenTimelock.sol:29:20
+   |
+29 |         locks.push(Lock(msg.sender, beneficiary, amount, unlockTime, false));
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenSpender.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenSpender.t.sol:4:8
+  |
+4 | import "../contracts/TokenSpender.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unwrapped-modifier-logic]: wrap modifier logic to reduce code size
+  --> contracts/TokenMarketplace.sol:18:14
+   |
+18 |     modifier onlyOwner() {
+   |              ^^^^^^^^^
+   |
+   = note: wrap modifier logic to reduce code size
+           
+           - modifier onlyOwner() {
+           -     require(msg.sender == owner, "Only owner");
+           -     _;
+           - }
+           + modifier onlyOwner() {
+           +     _onlyOwner();
+           +     _;
+           + }
+           + 
+           + function _onlyOwner() internal {
+           +     require(msg.sender == owner, "Only owner");
+           + }
+           
+           
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#unwrapped-modifier-logic
+
+note[unwrapped-modifier-logic]: wrap modifier logic to reduce code size
+  --> contracts/MultiSigTreasury.sol:20:14
+   |
+20 |     modifier onlyOwner() {
+   |              ^^^^^^^^^
+   |
+   = note: wrap modifier logic to reduce code size
+           
+           - modifier onlyOwner() {
+           -     require(isOwner[msg.sender], "Only owner");
+           -     _;
+           - }
+           + modifier onlyOwner() {
+           +     _onlyOwner();
+           +     _;
+           + }
+           + 
+           + function _onlyOwner() internal {
+           +     require(isOwner[msg.sender], "Only owner");
+           + }
+           
+           
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#unwrapped-modifier-logic
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+ --> contracts/TokenApp.sol:8:29
+  |
+8 |     IERC20 public immutable token;
+  |                             ^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/ApprovalSecurityLab.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/ApprovalSecurityLab.t.sol:4:8
+  |
+4 | import "../contracts/ApprovalSecurityLab.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> contracts/ApprovalSecurityLab.sol:3:8
+  |
+3 | import "./TokenApp.sol";
+  |        ^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+ --> contracts/IlliniToken.sol:7:30
+  |
+7 |     address public immutable owner;
+  |                              ^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenFaucet.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenFaucet.t.sol:4:8
+  |
+4 | import "../contracts/TokenFaucet.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unused-import]: unused imports should be removed
+ --> contracts/TokenApp.sol:4:9
+  |
+4 | import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+  |         ^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unused-import
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> contracts/TokenMarketplace.sol:30:23
+   |
+30 |         products.push(Product(name, price, stock));
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/ApprovalSecurityLab.t.sol:69:9
+   |
+69 |         t.transfer(A, 10 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/IlliniToken.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenTimelock.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenTimelock.t.sol:4:8
+  |
+4 | import "../contracts/TokenTimelock.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> contracts/MultiSigTreasury.sol:36:24
+   |
+36 |         proposals.push(Proposal(to, amount, 0, false));
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenVault.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenVault.t.sol:4:8
+  |
+4 | import "../contracts/TokenVault.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenEscrow.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenEscrow.t.sol:4:8
+  |
+4 | import "../contracts/TokenEscrow.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenMarketplace.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/TokenMarketplace.t.sol:4:8
+  |
+4 | import "../contracts/TokenMarketplace.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/MultiSigTreasury.t.sol:3:8
+  |
+3 | import "./Base.sol";
+  |        ^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/TokenVault.t.sol:77:9
+   |
+77 |         t.transfer(address(v), 5 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/Base.sol:3:8
+  |
+3 | import "../contracts/IlliniToken.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/TokenFaucet.t.sol:12:9
+   |
+12 |         t.transfer(address(f), 1000 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+note[unaliased-plain-import]: use named imports '{A, B}' or alias 'import ".." as X'
+ --> test/MultiSigTreasury.t.sol:4:8
+  |
+4 | import "../contracts/MultiSigTreasury.sol";
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unaliased-plain-import
+
+note[screaming-snake-case-const]: constants should use SCREAMING_SNAKE_CASE
+  --> test/Base.sol:13:17
+   |
+13 |     Vm constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
+   |                 ^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-const
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/IlliniToken.t.sol:24:9
+   |
+24 |         t.transfer(C, 10 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/IlliniToken.t.sol:32:9
+   |
+32 |         t.transfer(C, 1001 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/MultiSigTreasury.t.sol:12:9
+   |
+12 |         t.transfer(address(q), 100 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Base.sol:23:9
+   |
+23 |         t.transfer(A, 1000 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/Base.sol:24:9
+   |
+24 |         t.transfer(B, 1000 ether);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+  --> test/IlliniToken.t.sol:62:9
+   |
+62 |         t.transfer(address(0), 1);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice
+
+> illini-assignments@1.0.0 test
+> npm run sol:test
+
+
+> illini-assignments@1.0.0 sol:test
+> node scripts/forge.mjs test -vv
+
+No files changed, compilation skipped
+2026-11-20T01:27:49.042480Z  WARN traces::etherscan: etherscan config not found
+2026-11-20T01:27:49.048683Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048714Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048683Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048728Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048724Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048683Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.048778Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.049166Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+2026-11-20T01:27:49.057456Z  WARN evm::traces: failed to read cache file path="/Users/wushuang/.foundry/cache/signatures" err=Read { source: Os { code: 2, kind: NotFound, message: "No such file or directory" }, path: "/Users/wushuang/.foundry/cache/signatures" }
+
+Ran 9 tests for test/TokenFaucet.t.sol:TokenFaucetTest
+[PASS] testBoundary() (gas: 91970)
+[PASS] testCooldown() (gas: 79065)
+[PASS] testDeposit() (gas: 44792)
+[PASS] testDepositNeedsApproval() (gas: 19679)
+[PASS] testEmptyRollback() (gas: 416109)
+[PASS] testFirstClaim() (gas: 77768)
+[PASS] testIndependentUsers() (gas: 132500)
+[PASS] testRequestEvent() (gas: 75672)
+[PASS] testTimestampZero() (gas: 59589)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.67ms (911.17µs CPU time)
+
+Ran 9 tests for test/TokenMarketplace.t.sol:TokenMarketplaceTest
+[PASS] testInsufficientBalance() (gas: 52684)
+[PASS] testMissingProduct() (gas: 15811)
+[PASS] testOutOfStock() (gas: 52574)
+[PASS] testOwnerOnly() (gas: 11601)
+[PASS] testPaymentRollback() (gas: 44050)
+[PASS] testPriceUpdate() (gas: 52256)
+[PASS] testProduct() (gas: 15913)
+[PASS] testPurchase() (gas: 52973)
+[PASS] testPurchaseEvent() (gas: 46105)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.68ms (948.50µs CPU time)
+
+Ran 9 tests for test/IlliniToken.t.sol:IlliniTokenTest
+[PASS] testBurn() (gas: 22510)
+[PASS] testExcessBurn() (gas: 11070)
+[PASS] testExcessTransfer() (gas: 11380)
+[PASS] testInitialSupply() (gas: 571152)
+[PASS] testMetadata() (gas: 13465)
+[PASS] testOwnerMint() (gas: 36961)
+[PASS] testTransferEvent() (gas: 42570)
+[PASS] testUnauthorizedMint() (gas: 9013)
+[PASS] testZeroRecipient() (gas: 8617)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.58ms (710.67µs CPU time)
+
+Ran 11 tests for test/TokenEscrow.t.sol:TokenEscrowTest
+[PASS] testDeadlineRefund() (gas: 74460)
+[PASS] testDoubleRelease() (gas: 61753)
+[PASS] testEarlyRefund() (gas: 22845)
+[PASS] testFunded() (gas: 17730)
+[PASS] testInvalidCreation() (gas: 30175)
+[PASS] testRefundThenReleaseAndRefund() (gas: 65094)
+[PASS] testRelease() (gas: 60874)
+[PASS] testReleaseThenRefund() (gas: 62068)
+[PASS] testSettlementEvent() (gas: 58502)
+[PASS] testUnauthorizedRefund() (gas: 29510)
+[PASS] testUnauthorizedRelease() (gas: 29262)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 3.71ms (1.01ms CPU time)
+
+Ran 8 tests for test/TokenSpender.t.sol:TokenSpenderTest
+[PASS] testAboveAllowance() (gas: 67878)
+[PASS] testAboveBalance() (gas: 73190)
+[PASS] testNoApproval() (gas: 42103)
+[PASS] testPayment() (gas: 102675)
+[PASS] testPaymentEvent() (gas: 79080)
+[PASS] testRevoked() (gas: 53063)
+[PASS] testUnauthorized() (gas: 44167)
+[PASS] testZeroPayee() (gas: 63047)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 3.77ms (1.04ms CPU time)
+
+Ran 9 tests for test/TokenTimelock.t.sol:TokenTimelockTest
+[PASS] testDoubleWithdrawal() (gas: 77396)
+[PASS] testEarly() (gas: 22834)
+[PASS] testExactBoundary() (gas: 79819)
+[PASS] testIndependentLocks() (gas: 221870)
+[PASS] testInvalidInputs() (gas: 29800)
+[PASS] testLockEvents() (gas: 184196)
+[PASS] testLockInfo() (gas: 27121)
+[PASS] testMissingLock() (gas: 11834)
+[PASS] testWrongCaller() (gas: 18550)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.82ms (1.10ms CPU time)
+
+Ran 8 tests for test/ApprovalSecurityLab.t.sol:ApprovalSecurityLabTest
+[PASS] testAboveAllowance() (gas: 58030)
+[PASS] testInsufficientBalance() (gas: 52821)
+[PASS] testLegitimate() (gas: 53697)
+[PASS] testLimitedExposure() (gas: 72295)
+[PASS] testObservationEvent() (gas: 86065)
+[PASS] testRedirect() (gas: 65692)
+[PASS] testRevocation() (gas: 40740)
+[PASS] testUnlimitedFutureFunds() (gas: 104049)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 3.76ms (1.13ms CPU time)
+
+Ran 10 tests for test/TokenVault.t.sol:TokenVaultTest
+[PASS] testAccountingEvents() (gas: 85760)
+[PASS] testDeposit() (gas: 100318)
+[PASS] testDonation() (gas: 107978)
+[PASS] testFuzzConservation(uint96) (runs: 256, μ: 98588, ~: 98591)
+[PASS] testIsolation() (gas: 102147)
+[PASS] testMultipleUsers() (gas: 141078)
+[PASS] testNoAllowance() (gas: 70853)
+[PASS] testOverdraw() (gas: 100188)
+[PASS] testPartialWithdrawal() (gas: 107020)
+[PASS] testZeroDeposit() (gas: 13888)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 9.61ms (9.63ms CPU time)
+
+Ran 11 tests for test/MultiSigTreasury.t.sol:MultiSigTreasuryTest
+[PASS] testDuplicateApproval() (gas: 64548)
+[PASS] testGovernanceEvents() (gas: 205423)
+[PASS] testInsufficientFundsRollback() (gas: 175338)
+[PASS] testInvalidOwners() (gas: 192524)
+[PASS] testMissingProposal() (gas: 12991)
+[PASS] testOneApproval() (gas: 68440)
+[PASS] testOutsider() (gas: 19625)
+[PASS] testOwners() (gas: 17233)
+[PASS] testProposalNoAutoApproval() (gas: 17642)
+[PASS] testReplay() (gas: 156871)
+[PASS] testTwoApprovals() (gas: 156824)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 13.49ms (1.16ms CPU time)
+
+Ran 9 test suites in 16.94ms (49.08ms CPU time): 84 tests passed, 0 failed, 0 skipped (84 total tests)
+2026-11-20T01:27:49.060355Z  WARN evm::traces: failed to create cache parent="/Users/wushuang/.foundry/cache" err=Operation not permitted (os error 1)
+2026-11-20T01:27:49.060365Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/Users/wushuang/.foundry/cache/signatures": No such file or directory (os error 2)
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice

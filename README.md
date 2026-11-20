@@ -1,5 +1,7 @@
 # IE 498 · Exploring Smart Contracts
 
+> **New: completed reference assignments (November 19, 2026).** See [illini-assignments/README.md](illini-assignments/README.md) for all nine assignments from `everythingapplejj/eth_testnet_experiment`, with their required interfaces, English report, and **84 passing tests**. Run that standalone project from its own directory. The original project and evidence described below are preserved separately.
+
 This project implements all nine modules in the proposal submitted by Jiwoong Jung, Jiayan Guo, and Arjun Sahu on November 14, 2026. It uses Solidity 0.8.30, Foundry 1.4.4, ethers.js 6.15.0, and OpenZeppelin Contracts 5.4.0. The repository includes the educational implementation, reproducible tests, actual local-chain transaction evidence, and an experimental report.
 
 ## Quick start
